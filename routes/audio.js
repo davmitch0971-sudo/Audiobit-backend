@@ -17,6 +17,7 @@ async function generateAudioFromPrompt(prompt) {
 }
 
 router.post('/generate', auth, async (req, res) => {
+  console.log('[SERVER] Received generation request:', req.body);
   try {
     const { projectId, prompt } = req.body;
     if (!prompt) return res.status(400).json({ message: 'Prompt is required' });
@@ -40,10 +41,11 @@ router.post('/generate', auth, async (req, res) => {
     job.status = 'done';
     job.resultUrl = resultUrl;
     await job.save();
+    console.log('[SERVER] Audio done, result:', resultUrl);
     return res.json({ message: 'Audio done', jobId: job._id, resultUrl });
   } catch (err) {
-    console.error('AUDIO ROUTE ERROR:', err.message);
-    return res.status(500).json({ message: 'Server error in /audio/generate' });
+    console.error('[SERVER] Detailed Error:', err.message);
+    return res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 
