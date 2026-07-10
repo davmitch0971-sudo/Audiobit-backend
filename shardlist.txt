@@ -1,0 +1,3 @@
+cluster0-shard-00-00.jabv4q0.mongodb.net
+cluster0-shard-00-01.jabv4q0.mongodb.net
+cluster0-shard-00-02.jabv4q0.mongodb.net
